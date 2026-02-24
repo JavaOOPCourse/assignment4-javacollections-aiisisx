@@ -10,6 +10,18 @@ public class Main {
         IssueService issueService = new IssueService();
         ActionHistoryService actionService = new ActionHistoryService();
 
+        studentService.initializeStudents();
+        studentService.removeLowGPA();
+        studentService.insertAtIndex();
+
+        appointmentService.initializeAppointments();
+
+        issueService.initializeIssues();
+        issueService.resolveIssues();
+
+        actionService.initializeActions();
+        actionService.addRequestedTranscript();
+
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -28,28 +40,48 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    // TODO
+                    studentService.printStudents();
+                    studentService.findHighestGPA();
                     break;
+
                 case 2:
-                    // TODO
+                    appointmentService.printAppointments();
+                    appointmentService.showFirstAndLast();
                     break;
+
                 case 3:
-                    // TODO
+                    issueService.showMostUrgent();
+                    issueService.printRemainingIssues();
                     break;
+
                 case 4:
-                    // TODO
+                    actionService.printHistory();
+                    actionService.showFirstAndLast();
                     break;
+
                 case 5:
-                    // TODO
+                    scanner.nextLine();
+                    System.out.print("Enter issue description: ");
+                    String description = scanner.nextLine();
+
+                    System.out.print("Enter urgency level (1 = highest): ");
+                    int urgency = scanner.nextInt();
+
+                    issueService.addNewIssue(description, urgency);
+                    System.out.println("New issue added.");
                     break;
+
                 case 6:
-                    // TODO
+                    actionService.undoLastAction();
                     break;
+
+
                 case 7:
-                    System.out.println("Exiting... 👋");
+                    System.out.println("Exiting... ");
                     break;
+
                 default:
-                    System.out.println("Invalid option ❌");
+                    System.out.println("Invalid option");
             }
 
         } while (choice != 7);
